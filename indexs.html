@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My First Web Page</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        
+        /* Header styles with animations */
+        header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        header h1 {
+            margin-bottom: 1rem;
+            animation: slideInFromTop 1s ease-out;
+        }
+        
+        @keyframes slideInFromTop {
+            0% {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            animation: slideInFromBottom 1s ease-out 0.3s both;
+        }
+        
+        @keyframes slideInFromBottom {
+            0% {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        nav a:hover {
+            background-color: #34495e;
+        }
+        
+        /* Main content styles - CSS Grid Layout */
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        /* Full width sections */
+        #about {
+            grid-column: 1 / -1; /* Spans full width */
+        }
+        
+        section {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            animation: fadeInUp 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+        
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Stagger animation delays for sections */
+        #about { animation-delay: 0.2s; }
+        #goals { animation-delay: 0.4s; }
+        #projects { animation-delay: 0.6s; }
+        #contact { animation-delay: 0.8s; }
+        
+        /* Goals section with flexbox list */
+        #goals ol {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        #goals li {
+            background: #ecf0f1;
+            padding: 0.75rem;
+            border-left: 4px solid #3498db;
+            border-radius: 5px;
+            transition: transform 0.2s;
+        }
+        
+        #goals li:hover {
+            transform: translateX(10px);
+            background: #d5dbdb;
+        }
+        
+        /* Project Cards Styling */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .project-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .project-card h3 {
+            color: #2c3e50;
+            margin-bottom: 0.75rem;
+        }
+        
+        .project-card p {
+            margin-bottom: 1rem;
+            color: #6c757d;
+        }
+        
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .tech-tag {
+            background: #3498db;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5rem;
+        }
+        
+        /* Form styles */
+        form div {
+            margin-bottom: 1rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+        }
+        
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        /* Radio button and checkbox styles */
+        fieldset {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        legend {
+            font-weight: bold;
+            padding: 0 0.5rem;
+            color: #2c3e50;
+        }
+        
+        .radio-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .radio-group input[type="radio"] {
+            width: auto;
+            margin-right: 0.5rem;
+        }
+        
+        .radio-group label {
+            margin-bottom: 0;
+            font-weight: normal;
+        }
+        
+        input[type="checkbox"] {
+            width: auto;
+            margin-right: 0.5rem;
+        }
+        
+        /* Responsive Design - Mobile First Approach */
+        @media screen and (max-width: 768px) {
+            /* Mobile Navigation */
+            nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            nav a {
+                display: block;
+                text-align: center;
+            }
+            
+            /* Mobile Grid Layout */
+            main {
+                grid-template-columns: 1fr; /* Single column on mobile */
+                gap: 1rem;
+                margin: 1rem auto;
+                padding: 0 0.5rem;
+            }
+            
+            section {
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2 {
+                font-size: 1.4rem;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            /* Extra small screens */
+            header {
+                padding: 0.5rem 0;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            section {
+                padding: 1rem;
+                margin-bottom: 1rem;
+            }
+            
+            input, select, textarea, button {
+                font-size: 16px; /* Prevents zoom on iOS */
+            }
+        }
+        
+        /* Footer styles */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+        
+        /* Utility classes */
+        .highlight {
+            background-color: #f39c12;
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+        }
+        
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .back-to-top:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Website!</h1>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#goals">Goals</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <section id="about">
+            <h2>About Me</h2>
+            <p>Hello! I'm learning web development. This is my first HTML page.</p>
+            <p>I'm excited to start this journey and build amazing things on the web!</p>
+        </section>
+        
+        <section id="goals">
+            <h2>My Learning Goals</h2>
+            <ol>
+                <li>Master HTML structure and semantics</li>
+                <li>Learn CSS for beautiful styling</li>
+                <li>Understand JavaScript for interactivity</li>
+                <li>Build full-stack applications</li>
+                <li>Deploy projects to the web</li>
+            </ol>
+        </section>
+        
+        <section id="projects">
+            <h2>My Projects</h2>
+            <p>Here are some projects I'm working on during my web development journey:</p>
+            
+            <div class="project-grid">
+                <div class="project-card">
+                    <h3>Personal Portfolio</h3>
+                    <p>A responsive website showcasing my skills and projects. Built with HTML, CSS, and JavaScript.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">HTML</span>
+                        <span class="tech-tag">CSS</span>
+                        <span class="tech-tag">JavaScript</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <h3>Todo Application</h3>
+                    <p>An interactive todo list with local storage. Users can add, edit, and delete tasks.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">CSS</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <h3>Weather Dashboard</h3>
+                    <p>Real-time weather information using external APIs. Features current weather and 5-day forecast.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">API Integration</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">CSS Grid</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="contact">
+            <h2>Get In Touch</h2>
+            <p>I'd love to hear from you! Fill out the form below:</p>
+            
+            <form>
+                <div>
+                    <label for="name">Your Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div>
+                    <label for="email">Your Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div>
+                    <label for="subject">Subject:</label>
+                    <select id="subject" name="subject">
+                        <option value="">Choose a topic...</option>
+                        <option value="general">General Inquiry</option>
+                        <option value="project">Project Collaboration</option>
+                        <option value="job">Job Opportunity</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label for="message">Your Message:</label>
+                    <textarea id="message" name="message" rows="5" placeholder="Write your message here..."></textarea>
+                </div>
+                
+                <div>
+                    <fieldset>
+                        <legend>How did you hear about me?</legend>
+                        <div class="radio-group">
+                            <input type="radio" id="google" name="referral" value="google">
+                            <label for="google">Google</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="friend" name="referral" value="friend">
+                            <label for="friend">Friend</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="social" name="referral" value="social">
+                            <label for="social">Social Media</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="other" name="referral" value="other">
+                            <label for="other">Other</label>
+                        </div>
+                    </fieldset>
+                </div>
+                
+                <div>
+                    <input type="checkbox" id="newsletter" name="newsletter">
+                    <label for="newsletter">Subscribe to my newsletter</label>
+                </div>
+                
+                <button type="submit">Send Message</button>
+            </form>
+            
+            <hr>
+            <p>Or email me directly: <a href="mailto:your.email@example.com">your.email@example.com</a></p>
+        </section>
+    </main>
+    
+    <footer>
+        <hr>
+        <p><strong>Fun fact:</strong> This page uses semantic HTML elements!</p>
+        <p><small>&copy; 2024 My First Website. Built with ❤️ and HTML.</small></p>
+    </footer>
+    
+    <button id="backToTop" class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        ↑ Top
+    </button>
+</body>
+</html>
